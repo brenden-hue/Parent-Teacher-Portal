@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 205 100% 98%;
+  --foreground: 220 32% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 32% 16%;
+  --primary: 204 85% 36%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 148 32% 94%;
+  --secondary-foreground: 161 58% 22%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 45%;
+  --accent: 35 100% 95%;
+  --accent-foreground: 28 67% 26%;
+  --border: 214 32% 88%;
+  --ring: 204 85% 36%;
+  --success: 150 50% 36%;
+  --warning: 37 92% 50%;
+  --danger: 0 72% 55%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(186, 230, 253, 0.55), transparent 30%),
+    linear-gradient(180deg, #f6fbff 0%, #f9fbfd 40%, #f2f7f7 100%);
+  color: hsl(var(--foreground));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

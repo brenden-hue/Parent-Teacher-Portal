@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChildcareApp Preview</title>
+    <style>
+      :root {
+        --bg: #f4fbff;
+        --panel: rgba(255, 255, 255, 0.9);
+        --line: #d7e5ef;
+        --text: #163047;
+        --muted: #5f7488;
+        --primary: #0b6798;
+        --primary-strong: #0e2233;
+        --success-bg: #e9f8ef;
+        --success-text: #1f7a48;
+        --warn-bg: #fff4df;
+        --warn-text: #9b6900;
+        --danger-bg: #ffe8ea;
+        --danger-text: #b43b4b;
+        --info-bg: #e8f4ff;
+        --info-text: #2468b2;
+        --shadow: 0 24px 60px -30px rgba(17, 43, 70, 0.28);
+        --radius-xl: 28px;
+        --radius-lg: 22px;
+        --radius-md: 16px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(175, 223, 255, 0.55), transparent 30%),
+          linear-gradient(180deg, #f6fbff 0%, #f7fbfb 42%, #eef6f8 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .hero {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 34px;
+        box-shadow: var(--shadow);
+        padding: 42px;
+        margin-bottom: 24px;
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.2rem, 4vw, 4.6rem);
+        line-height: 1.05;
+        margin: 16px 0 14px;
+        max-width: 900px;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 1.05rem;
+        max-width: 760px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 20px;
+        border-radius: 16px;
+        font-weight: 600;
+        border: 1px solid transparent;
+      }
+
+      .btn.primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn.secondary {
+        background: white;
+        border-color: var(--line);
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 22px;
+        margin-top: 18px;
+      }
+
+      .sidebar,
+      .topbar,
+      .card,
+      .portal-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .sidebar {
+        border-radius: var(--radius-xl);
+        padding: 18px;
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+      }
+
+      .brand {
+        border-radius: var(--radius-lg);
+        padding: 18px;
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.95), transparent 35%),
+          linear-gradient(135deg, #ffffff, #eaf6ff);
+        margin-bottom: 20px;
+      }
+
+      .brand h2 {
+        margin: 10px 0 6px;
+        font-size: 1.6rem;
+      }
+
+      .brand p,
+      .meta,
+      .subtle {
+        color: var(--muted);
+      }
+
+      .nav a {
+        display: block;
+        padding: 13px 14px;
+        border-radius: 16px;
+        margin-bottom: 6px;
+        color: #516577;
+        font-weight: 600;
+      }
+
+      .nav a.active {
+        background: var(--primary-strong);
+        color: white;
+      }
+
+      .userbox {
+        margin-top: 18px;
+        padding: 14px;
+        border: 1px dashed var(--line);
+        border-radius: 18px;
+        background: #f8fbfd;
+      }
+
+      .main {
+        display: grid;
+        gap: 22px;
+      }
+
+      .topbar {
+        border-radius: var(--radius-xl);
+        padding: 22px 24px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .search {
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: #f8fbfd;
+        color: var(--muted);
+        min-width: 280px;
+      }
+
+      .grid-4,
+      .grid-3,
+      .grid-2 {
+        display: grid;
+        gap: 18px;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card,
+      .portal-card {
+        border-radius: var(--radius-lg);
+        padding: 22px;
+      }
+
+      .card h3,
+      .portal-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.1rem;
+      }
+
+      .metric {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 8px 0;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 11px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .success {
+        background: var(--success-bg);
+        color: var(--success-text);
+      }
+
+      .warning {
+        background: var(--warn-bg);
+        color: var(--warn-text);
+      }
+
+      .danger {
+        background: var(--danger-bg);
+        color: var(--danger-text);
+      }
+
+      .info {
+        background: var(--info-bg);
+        color: var(--info-text);
+      }
+
+      .list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .item {
+        border: 1px solid var(--line);
+        background: #fbfdff;
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      .item-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: start;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 14px 10px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      th {
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .section-title {
+        font-size: 1.35rem;
+        margin: 8px 0 16px;
+      }
+
+      .preview-section {
+        margin-top: 34px;
+      }
+
+      .child-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 18px;
+      }
+
+      .portal {
+        margin-top: 38px;
+        padding: 26px;
+        border-radius: 32px;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(246,252,252,0.94));
+        box-shadow: var(--shadow);
+      }
+
+      .portal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .portal-nav {
+        display: flex;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 1100px) {
+        .app,
+        .grid-4,
+        .grid-3,
+        .grid-2,
+        .child-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar,
+        .portal-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .search {
+          min-width: 0;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="hero">
+        <div class="eyebrow">ChildcareApp Preview</div>
+        <h1>Modern childcare operations for Kid City USA, staff, and families.</h1>
+        <p>
+          Quick visual preview of the SaaS direction: premium admin dashboard, child detail workflow,
+          billing visibility, classroom operations, and a simple parent portal experience.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#admin">View Admin</a>
+          <a class="btn secondary" href="#portal">View Parent Portal</a>
+        </div>
+      </section>
+
+      <section class="app" id="admin">
+        <aside class="sidebar">
+          <div class="brand">
+            <div class="eyebrow">ChildcareApp</div>
+            <h2>Kid City USA</h2>
+            <p>Modern operations for directors, teachers, front desk staff, and families.</p>
+          </div>
+
+          <nav class="nav">
+            <a class="active" href="#">Dashboard</a>
+            <a href="#">Children</a>
+            <a href="#">Families</a>
+            <a href="#">Attendance</a>
+            <a href="#">Classrooms</a>
+            <a href="#">Billing</a>
+            <a href="#">Messages</a>
+            <a href="#">Staff</a>
+            <a href="#">Reports</a>
+            <a href="#">Settings</a>
+          </nav>
+
+          <div class="userbox">
+            <strong>Amelia Director</strong><br />
+            <span class="meta">director</span>
+          </div>
+        </aside>
+
+        <div class="main">
+          <div class="topbar">
+            <div>
+              <div class="meta">Commercial MVP foundation</div>
+              <div style="font-size: 2rem; font-weight: 700; margin-top: 4px;">Operations console</div>
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <div class="search">Search children, families, invoices, messages...</div>
+              <div class="btn primary">New action</div>
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <div class="card">
+              <div class="meta">Children enrolled</div>
+              <div class="metric">128</div>
+              <div class="subtle">Active, waitlist, and newly onboarded children across classrooms.</div>
+            </div>
+            <div class="card">
+              <div class="meta">Checked in now</div>
+              <div class="metric">96</div>
+              <div class="subtle">Live attendance snapshot for front desk and classroom teams.</div>
+            </div>
+            <div class="card">
+              <div class="meta">Overdue balances</div>
+              <div class="metric">$6,240</div>
+              <div class="subtle">Families needing billing follow-up or auto-pay recovery.</div>
+            </div>
+            <div class="card">
+              <div class="meta">Unread messages</div>
+              <div class="metric">14</div>
+              <div class="subtle">Direct parent threads, classroom updates, and announcements.</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="section-title">Operational priorities</div>
+              <div class="list">
+                <div class="item">
+                  <div class="item-top">
+                    <strong>Attendance corrections</strong>
+                    <span class="badge warning">warning</span>
+                  </div>
+                  <div class="subtle" style="margin-top:8px;">2 check-ins need director review before payroll cutoff.</div>
+                </div>
+                <div class="item">
+                  <div class="item-top">
+                    <strong>Pickup restrictions</strong>
+                    <span class="badge danger">danger</span>
+                  </div>
+                  <div class="subtle" style="margin-top:8px;">Noah Lee requires a PIN-verified pickup this afternoon.</div>
+                </div>
+                <div class="item">
+                  <div class="item-top">
+                    <strong>Billing follow-up</strong>
+                    <span class="badge info">info</span>
+                  </div>
+                  <div class="subtle" style="margin-top:8px;">Jordan Lee requested a split payment plan for April tuition.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="section-title">Staff coverage</div>
+              <div class="list">
+                <div class="item">
+                  <div class="item-top">
+                    <div>
+                      <strong>Sofia Ramirez</strong>
+                      <div class="subtle">Lead Teacher · Pre-K Owls</div>
+                    </div>
+                    <span class="badge warning">1 expiring</span>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="item-top">
+                    <div>
+                      <strong>Henry Brooks</strong>
+                      <div class="subtle">Front Desk · Operations</div>
+                    </div>
+                    <span class="badge success">Current</span>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="item-top">
+                    <div>
+                      <strong>Priya Shah</strong>
+                      <div class="subtle">Assistant Teacher · Toddlers Tidepool</div>
+                    </div>
+                    <span class="badge warning">2 due</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <div class="section-title">Children</div>
+            <div class="card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Child</th>
+                    <th>Classroom</th>
+                    <th>Age</th>
+                    <th>Status</th>
+                    <th>Family</th>
+                    <th>Pickup</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Noah Lee</td>
+                    <td>Pre-K Owls</td>
+                    <td>4 years</td>
+                    <td><span class="badge success">active</span></td>
+                    <td>Jordan Lee</td>
+                    <td><span class="badge warning">pin_required</span></td>
+                  </tr>
+                  <tr>
+                    <td>Luna Chen</td>
+                    <td>Toddlers Tidepool</td>
+                    <td>2 years</td>
+                    <td><span class="badge success">active</span></td>
+                    <td>Avery Chen</td>
+                    <td><span class="badge info">normal</span></td>
+                  </tr>
+                  <tr>
+                    <td>Mila Patel</td>
+                    <td>Preschool Garden</td>
+                    <td>3 years</td>
+                    <td><span class="badge warning">waitlist</span></td>
+                    <td>Morgan Patel</td>
+                    <td><span class="badge danger">restricted</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <div class="section-title">Child Detail</div>
+            <div class="child-layout">
+              <div style="display:grid; gap:18px;">
+                <div class="card">
+                  <div class="item-top">
+                    <div>
+                      <div class="meta">Child profile</div>
+                      <div style="font-size:2rem; font-weight:700; margin-top:6px;">Noah Lee</div>
+                      <div class="subtle" style="margin-top:8px;">Pre-K Owls · 4 years</div>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                      <span class="badge success">active</span>
+                      <span class="btn secondary" style="padding:10px 14px;">Create daily report</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid-2">
+                  <div class="card">
+                    <h3>Family & pickup</h3>
+                    <p class="subtle">Primary guardian</p>
+                    <strong>Jordan Lee</strong>
+                    <p class="subtle" style="margin-top:16px;">Pickup status</p>
+                    <span class="badge warning">pin_required</span>
+                    <p class="subtle" style="margin-top:16px;">Emergency contact</p>
+                    <strong>Taylor Lee · (555) 302-4491</strong>
+                  </div>
+                  <div class="card">
+                    <h3>Health & documents</h3>
+                    <p class="subtle">Medical summary</p>
+                    <strong>Peanut allergy</strong>
+                    <p class="subtle" style="margin-top:16px;">Documents</p>
+                    <strong>Immunization record, allergy action plan</strong>
+                    <p class="subtle" style="margin-top:16px;">Authorized pickups</p>
+                    <strong>Jordan Lee, Taylor Lee</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <h3>Alerts</h3>
+                <div class="list" style="margin-top:14px;">
+                  <div class="item" style="background:var(--danger-bg); color:var(--danger-text);">PIN verification required for afternoon pickup.</div>
+                  <div class="item" style="background:var(--warn-bg); color:var(--warn-text);">Allergy action plan renewal due next month.</div>
+                  <div class="item" style="background:var(--info-bg); color:var(--info-text);">Parent prefers billing reminders by SMS.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <div class="section-title">Billing</div>
+            <div class="grid-3">
+              <div class="card">
+                <div class="meta">Collected this month</div>
+                <div class="metric">$42,800</div>
+                <div class="subtle">Stripe-ready payments, manual entries, and auto-pay reconciliation.</div>
+              </div>
+              <div class="card">
+                <div class="meta">Outstanding A/R</div>
+                <div class="metric">$6,240</div>
+                <div class="subtle">Family balances, late fees, and upcoming retries.</div>
+              </div>
+              <div class="card">
+                <div class="meta">Auto-pay success</div>
+                <div class="metric">94%</div>
+                <div class="subtle">Commercial billing foundation with subscription-ready architecture.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="portal" id="portal">
+        <div class="portal-header">
+          <div>
+            <div class="eyebrow">Parent Portal</div>
+            <div style="font-size:1.6rem; font-weight:700; margin-top:6px;">Kid City USA</div>
+          </div>
+          <div class="portal-nav">
+            <span>Dashboard</span>
+            <span>Children</span>
+            <span>Billing</span>
+            <span>Messages</span>
+            <span>Documents</span>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="portal-card">
+            <div class="meta">Children</div>
+            <div class="metric">2</div>
+            <div class="subtle">Quick access to classroom, daily reports, and pickup notes.</div>
+          </div>
+          <div class="portal-card">
+            <div class="meta">Balance due</div>
+            <div class="metric">$620</div>
+            <div class="subtle">See invoices, saved cards, and upcoming auto-pay dates.</div>
+          </div>
+          <div class="portal-card">
+            <div class="meta">Messages</div>
+            <div class="metric">3</div>
+            <div class="subtle">Secure communication with teachers, staff, and billing.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
